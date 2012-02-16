@@ -85,3 +85,10 @@ run() {
       )
    done
 }
+
+stop() {
+   echo "** stop server"
+   rm -f $RESP
+}
+
+trap 'stop; exit' INT
