@@ -10,5 +10,5 @@ Just clone the repo :
 Then you can run the server :
 
     cd sh-mvc
-    ./bin/server
+    ./bin/serve
 
