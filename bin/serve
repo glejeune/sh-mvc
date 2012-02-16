@@ -1,0 +1,23 @@
+#!/bin/sh
+
+SH_MVC_ROOT=$(dirname $0)/..
+cd $SH_MVC_ROOT
+SH_MVC_ROOT=$(pwd)
+SH_MVC_LIB=$SH_MVC_ROOT/lib
+SH_MVC_STATIC=$SH_MVC_ROOT/static
+SH_MVC_APP=$SH_MVC_ROOT/app
+SH_MVC_TMP=$SH_MVC_ROOT/.socket
+if [ ! -f $SH_MVC_TMP ] ; then
+   mkdir -p $SH_MVC_TMP
+fi
+rm -f $SH_MVC_TMP/*
+
+PORT=$1
+if [ "x$PORT" == "x" ] ; then
+   PORT=9000
+fi
+
+. $SH_MVC_LIB/application.sh
+
+run
+
