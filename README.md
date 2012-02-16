@@ -7,7 +7,7 @@ Just clone the repo :
 
     git clone https://github.com/glejeune/sh-mvc.git
 
-Then tou can run the server :
+Then you can run the server :
 
     cd sh-mvc
     ./bin/server
