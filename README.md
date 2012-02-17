@@ -1,4 +1,4 @@
-# SH-MVC aka Shail
+# SH-MVC aka Shails
 A (very) naive MVC framework
 
 ## How to install
@@ -31,7 +31,7 @@ Then you must map each action to one or more routes :
     }
     map "sample_action" "/sample" 
 
-The first parameter of the `map` function is the name of the function, the following parameters are the routes to map to. In this example, when you go to `http://localhost:9000/sample`, *Shail* will call `sample_action`.
+The first parameter of the `map` function is the name of the function, the following parameters are the routes to map to. In this example, when you go to `http://localhost:9000/sample`, *Shails* will call `sample_action`.
 
 In an action, you can retrieve the GET or POST parameters by using `param`. This function take the name of the parameter you want to retrieve the value.
 
