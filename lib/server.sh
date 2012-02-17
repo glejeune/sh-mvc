@@ -1,5 +1,3 @@
-#!/bin/sh
-
 redirect() {
    LOCATION=$1
    cat >$RESP <<EOF
@@ -54,21 +52,44 @@ Content-Length: ${FILE_SIZE}
 EOF
 }
 
+parse_header() {
+   __DATA=$(echo "$1" | tr -d '\n' | tr -d '\r') ; shift
+   if [ "x$__ROUTE" == "x" ] ; then
+      parse_route $(echo $__DATA | awk '{print $2}')
+   else
+      __KEY=$(trim $(echo $__DATA | awk -F":" '{print $1}'))
+      __VALUE=$(trim $(echo $__DATA | sed -e "s/$__KEY://"))
+      hput "header" "$__KEY" "$__VALUE"
+   fi
+}
+
 route() {
-   REQUEST=$1
+   REQUEST="$1"
+
+   while read __LINE ; do
+      parse_header "$__LINE"
+   done <<EOF
+"$REQUEST"
+EOF
+
+   __CL=$(hget "header" "Content-Length")
+   if [ "x$__CL" != "x" ] ; then
+      read -n $__CL __BODY
+      parse_params "$__BODY"
+   fi
+
    log "$REQUEST"
 
-   ROUTE=$(echo $REQUEST | head -1 | awk '{print $2}')
-   FILE=$(echo "$SH_MVC_STATIC/$ROUTE")
+   FILE=$(echo "$SH_MVC_STATIC/$__ROUTE")
 
    if [ -f $FILE ] ; then
       render_file "$FILE"
    else
-      ACTION=$(hget routes $ROUTE)
+      ACTION=$(hget routes $__ROUTE)
       if [ "x$ACTION" != "x" ] ; then
          eval $ACTION
       else
-         render_data "<h1>$ROUTE : NOT FOUND!</h1>" "text/html"
+         render_data "<h1>$__ROUTE : NOT FOUND!</h1>" "text/html"
       fi
    fi
 }

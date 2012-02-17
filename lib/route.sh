@@ -1,3 +1,13 @@
+parse_route() {
+   __TMP=$1 ; shift
+   __ROUTE=$(trim $(echo $__TMP | awk -F'?' '{print $1}'))
+   __ROUTE_REG=$(echo $__ROUTE | sed -e 's/\//\\\//g')
+   __PARAMS=$(trim $(echo $__TMP | sed -e "s/^$__ROUTE_REG\?//"))
+   if [ "x$__PARAMS" != "x" ] ; then
+      parse_params "$__PARAMS"
+   fi
+}
+
 map() {
    ACTION=$1; shift
    ROUTE=$1; shift
