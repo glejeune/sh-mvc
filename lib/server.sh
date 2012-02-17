@@ -14,7 +14,7 @@ EOF
 
 render_view() {
    VIEW=$SH_MVC_APP/views/$1.esh
-   PREVIEW="DATA=\"$(cat $VIEW | sed -e 's/${\(.*\)}/$\1/')\""
+   PREVIEW="DATA=\"$(cat $VIEW | sed -e 's/"/\\"/g' | sed -e 's/${\(.*\)}/$\1/g')\""
    eval $PREVIEW
    render_data "$DATA"
 }
