@@ -1,0 +1,13 @@
+<html>
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   </head>
+   <body>
+      <h1>hello</h1>
+      It is ${DATE}
+      <form method="GET" action="/result">
+         Enter your name <input type="text" name="name" /><br />
+         <input type="submit" value="So?" />
+      </form>
+   </body>
+</html>
