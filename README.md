@@ -33,11 +33,11 @@ Then you must map each action to one or more routes :
 
 The first parameter of the `map` function is the name of the function, the following parameters are the routes to map to. In this example, when you go to `http://localhost:9000/sample`, *Shail* will call `sample_action`.
 
-In an action, you can retrieve the GET or POST parameters by using `params`. This function take the name of the parameter you want to retrieve the value.
+In an action, you can retrieve the GET or POST parameters by using `param`. This function take the name of the parameter you want to retrieve the value.
 
     # app/controllers/sample.sh
     sample_action() {
-        USERNAME=$(params "username")
+        USERNAME=$(param "username")
         # ...
     }
     map "sample_action" "/sample" 
@@ -58,7 +58,7 @@ Now you can declate `DATE` in your controller and ask rendering this view, by us
 
     # app/controllers/sample.sh
     sample_action() {
-        export USERNAME=$(params "username")
+        export USERNAME=$(param "username")
         export DATE=$(date)
         
         render_view "sample_view"
